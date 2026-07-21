@@ -31,7 +31,7 @@ pipeline {
     steps {
         sh '''
         sleep 10
-        curl -f http://dvwa:80
+        curl -f http://host.docker.internal:4280
         '''
     }
 }
