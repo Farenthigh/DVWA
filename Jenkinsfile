@@ -14,7 +14,7 @@ pipeline {
         stage('Build Docker Image') {
             steps {
                 sh '''
-                docker build -t dvwa:test .
+                docker build -t farenthigh/dvwa:dev .
                 '''
             }
         }
@@ -27,7 +27,7 @@ pipeline {
                 '''
             }
         }
-        
+
         stage('Deploy') {
             steps {
                 sh '''
