@@ -1,37 +1,14 @@
 volumes:
   dvwa:
-  jenkins_home:
 
 networks:
   dvwa:
 
 services:
-  jenkins:
-    build:
-      context: ./jenkins
-      dockerfile: Dockerfile
-
-    image: farenthigh/jenkins:dev
-
-    container_name: jenkins
-
-    user: root
-
-    ports:
-      - "8080:8080"
-      - "50000:50000"
-
-    volumes:
-      - jenkins_home:/var/jenkins_home
-      - /var/run/docker.sock:/var/run/docker.sock
-
-    networks:
-      - dvwa
-
-    restart: unless-stopped
 
   dvwa:
     image: farenthigh/dvwa:dev
+
     build:
       context: .
       dockerfile: Dockerfile
@@ -49,6 +26,7 @@ services:
       - "4280:80"
 
     restart: unless-stopped
+
 
   db:
     image: mariadb:10
