@@ -28,6 +28,15 @@ pipeline {
             }
         }
 
+        stage('Test Application') {
+    steps {
+        sh '''
+        sleep 10
+        curl -f http://localhost:4280 || exit 1
+        '''
+    }
+}
+
         stage('Deploy') {
             steps {
                 sh '''
