@@ -6,7 +6,7 @@ pipeline {
 
         stage('Checkout') {
             steps {
-                echo 'Checkout DVWA source'
+                checkout scm
             }
         }
 
