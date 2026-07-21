@@ -28,13 +28,13 @@ pipeline {
         }
 
         stage('Test Application') {
-            steps {
-                sh '''
-                sleep 10
-                curl -f http://localhost:4280
-                '''
-            }
-        }
+    steps {
+        sh '''
+        sleep 10
+        curl -f http://dvwa:80
+        '''
+    }
+}
 
     }
 }
