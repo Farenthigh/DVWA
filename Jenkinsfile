@@ -10,7 +10,6 @@ pipeline {
             }
         }
 
-
         stage('Build Docker Image') {
             steps {
                 sh '''
@@ -19,29 +18,20 @@ pipeline {
             }
         }
 
-
-        stage('Test Image') {
-            steps {
-                sh '''
-                docker images | grep dvwa
-                '''
-            }
-        }
-
-        stage('Test Application') {
-    steps {
-        sh '''
-        sleep 10
-        curl -f http://localhost:4280 || exit 1
-        '''
-    }
-}
-
         stage('Deploy') {
             steps {
                 sh '''
                 docker compose down
                 docker compose up -d
+                '''
+            }
+        }
+
+        stage('Test Application') {
+            steps {
+                sh '''
+                sleep 10
+                curl -f http://localhost:4280
                 '''
             }
         }
