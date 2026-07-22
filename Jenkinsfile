@@ -10,12 +10,14 @@ pipeline {
         }
 
         stage('Build Docker Image') {
-            steps {
-                sh '''
-                docker build -t farenthigh/dvwa:dev .
-                '''
-            }
-        }
+    steps {
+        sh '''
+        docker build \
+        --platform linux/amd64 \
+        -t farenthigh/dvwa:dev .
+        '''
+    }
+}
 
         stage('Push Image') {
             steps {
