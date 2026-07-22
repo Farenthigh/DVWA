@@ -9,10 +9,6 @@ services:
   dvwa:
     image: farenthigh/dvwa:dev
 
-    build:
-      context: .
-      dockerfile: Dockerfile
-
     environment:
       - DB_SERVER=db
 
@@ -26,7 +22,6 @@ services:
       - "4280:80"
 
     restart: unless-stopped
-
 
   db:
     image: mariadb:10
