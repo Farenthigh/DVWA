@@ -1,5 +1,4 @@
 pipeline {
-
     agent any
 
     stages {
@@ -10,31 +9,49 @@ pipeline {
             }
         }
 
-        stage('Build Docker Image') {
-            steps {
-                sh '''
-                docker build -t farenthigh/dvwa:dev .
-                '''
-            }
-        }
+        // stage('Build Docker Image') {
+        //     steps {
+        //         sh '''
+        //         docker build -t farenthigh/dvwa:dev .
+        //         '''
+        //     }
+        // }
 
-        stage('Deploy') {
-            steps {
-                sh '''
-                docker compose down
-                docker compose up -d
-                '''
-            }
-        }
+        // stage('Push Image') {
+        //     steps {
+        //         withCredentials([usernamePassword(
+        //             credentialsId: 'dockerhub',
+        //             usernameVariable: 'DOCKER_USER',
+        //             passwordVariable: 'DOCKER_PASS'
+        //         )]) {
+        //             sh '''
+        //             echo "$DOCKER_PASS" | docker login -u "$DOCKER_USER" --password-stdin
+        //             docker push farenthigh/dvwa:dev
+        //             '''
+        //         }
+        //     }
+        // }
 
-        stage('Test Application') {
+        stage('Test SSH') {
     steps {
-        sh '''
-        sleep 10
-        curl -f http://host.docker.internal:4280
-        '''
+        sshagent(credentials: ['aws-ec2-ssh']) {
+            sh '''
+            ssh -o StrictHostKeyChecking=no ubuntu@13.238.128.122 "
+                whoami &&
+                hostname
+            "
+            '''
+        }
     }
 }
 
+        // stage('Test Application') {
+        //     steps {
+        //         sh '''
+        //         sleep 15
+        //         curl -f http://13.238.128.122:4280
+        //         '''
+        //     }
+        // }
     }
 }
