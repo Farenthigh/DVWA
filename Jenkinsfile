@@ -58,17 +58,17 @@ pipeline {
         }
 
         stage('OWASP ZAP Scan') {
-            steps {
-                sh '''
-                mkdir -p zap-report
+    steps {
+        sh '''
+        mkdir -p zap-report
 
-                docker run --rm \
-                    -v $(pwd)/zap-report:/zap/wrk \
-                    ghcr.io/zaproxy/zaproxy:stable \
-                    zap-baseline.py \
-                    -t http://13.238.128.122:4280 \
-                    -r report.html
-                '''
+        docker run --rm \
+            -v "$(pwd)/zap-report:/zap/wrk" \
+            ghcr.io/zaproxy/zaproxy:stable \
+            zap-baseline.py \
+            -t http://13.238.128.122:4280 \
+            -r report.html
+            '''
             }
         }
     }
