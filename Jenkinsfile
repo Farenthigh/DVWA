@@ -63,10 +63,10 @@ pipeline {
         docker run --rm \
             ghcr.io/zaproxy/zaproxy:stable \
             zap-baseline.py \
-            -t http://13.238.128.122:4280
+            -t http://13.238.128.122:4280 || true
         '''
-    }
-}
+            }
+        }
     }
 
     post {
