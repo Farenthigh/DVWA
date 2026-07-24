@@ -48,13 +48,32 @@ pipeline {
     }
 }
 
-        stage('Test Application') {
-            steps {
-                sh '''
-                sleep 15
-                curl -f http://13.238.128.122:4280
-                '''
-            }
-        }
+stage('Test Application') {
+    steps {
+        sh '''
+        sleep 15
+        curl -f http://13.238.128.122:4280
+        '''
     }
+}
+
+stage('OWASP ZAP Scan') {
+    steps {
+        sh '''
+        mkdir -p zap-report
+
+        docker run --rm \
+            -v $(pwd)/zap-report:/zap/wrk \
+            ghcr.io/zaproxy/zaproxy:stable \
+            zap-baseline.py \
+            -t http://13.238.128.122:4280 \
+            -r report.html
+        '''
+    }
+}
+    post {
+    always {
+        archiveArtifacts artifacts: 'zap-report/*', fingerprint: true
+    }
+}
 }
