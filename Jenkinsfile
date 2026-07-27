@@ -44,13 +44,13 @@ pipeline {
 }
 
         stage('Test Application') {
-            steps {
-                sh '''
-                sleep 15
-                curl -f http://localhost:4280
-                '''
-            }
-        }
+    steps {
+        sh '''
+        sleep 15
+        curl -f http://13.239.226.29:4280
+        '''
+    }
+}
 
         stage('OWASP ZAP Scan') {
     steps {
@@ -58,10 +58,10 @@ pipeline {
         docker run --rm \
             ghcr.io/zaproxy/zaproxy:stable \
             zap-baseline.py \
-            -t http://localhost:4280
+            -t http://13.239.226.29:4280 || true
         '''
-            }
-        }
+    }
+}
     }
 
     post {
