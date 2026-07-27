@@ -34,25 +34,20 @@ pipeline {
             }
         }
 
-        stage('Deploy to AWS') {
-            steps {
-                sshagent(credentials: ['aws-ec2-ssh']) {
-                    sh '''
-                    ssh -o StrictHostKeyChecking=no ubuntu@13.238.128.122 "
-                        cd ~/DVWA &&
-                        docker compose pull &&
-                        docker compose up -d --force-recreate
-                    "
-                    '''
-                }
-            }
-        }
+        stage('Deploy DVWA') {
+    steps {
+        sh '''
+        docker-compose -f compose.yml pull
+        docker-compose -f compose.yml up -d --force-recreate
+        '''
+    }
+}
 
         stage('Test Application') {
             steps {
                 sh '''
                 sleep 15
-                curl -f http://13.238.128.122:4280
+                curl -f http://localhost:4280
                 '''
             }
         }
@@ -63,7 +58,7 @@ pipeline {
         docker run --rm \
             ghcr.io/zaproxy/zaproxy:stable \
             zap-baseline.py \
-            -t http://13.238.128.122:4280 || true
+            -t http://localhost:4280
         '''
             }
         }
