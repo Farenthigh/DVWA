@@ -47,7 +47,7 @@ pipeline {
     steps {
         sh '''
         sleep 15
-        curl -f http://13.239.226.29:4280
+        curl -f http://3.27.125.80:4280
         '''
     }
 }
@@ -58,7 +58,7 @@ pipeline {
         docker run --rm \
             ghcr.io/zaproxy/zaproxy:stable \
             zap-baseline.py \
-            -t http://13.239.226.29:4280 || true
+            -t http://3.27.125.80:4280 || true
         '''
     }
 }
