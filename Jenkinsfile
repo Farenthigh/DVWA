@@ -58,22 +58,18 @@ pipeline {
         rm -rf zap-report
         mkdir -p zap-report
 
-        docker run --rm \
-          --user root \
-          -v "$PWD/zap-report:/zap/wrk:rw" \
-          ghcr.io/zaproxy/zaproxy:stable \
-          ls -lah /zap/wrk
+        docker run --name zapscan \
+            --user root \
+            -v "$PWD/zap-report:/zap/wrk:rw" \
+            ghcr.io/zaproxy/zaproxy:stable \
+            zap-baseline.py \
+            -t http://3.27.125.80:4280 \
+            -r report.html || true
 
-        docker run --rm \
-          --user root \
-          -v "$PWD/zap-report:/zap/wrk:rw" \
-          ghcr.io/zaproxy/zaproxy:stable \
-          zap-baseline.py \
-          -d \
-          -t http://3.27.125.80:4280 \
-          -r report.html
+        docker cp zapscan:/home/zap/report.html zap-report/report.html || true
 
-        echo "===== Files ====="
+        docker rm -f zapscan || true
+
         ls -lah zap-report
         '''
         }
