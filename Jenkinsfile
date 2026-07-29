@@ -55,10 +55,14 @@ pipeline {
         stage('OWASP ZAP Scan') {
     steps {
         sh '''
+        mkdir -p zap-report
+
         docker run --rm \
+            -v $(pwd)/zap-report:/zap/wrk \
             ghcr.io/zaproxy/zaproxy:stable \
             zap-baseline.py \
-            -t http://3.27.125.80:4280 || true
+            -t http://3.27.125.80:4280 \
+            -r report.html
         '''
     }
 }
@@ -67,6 +71,6 @@ pipeline {
     post {
         always {
             archiveArtifacts artifacts: 'zap-report/*', fingerprint: true
-        }
     }
+}
 }
