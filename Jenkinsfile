@@ -54,20 +54,28 @@ pipeline {
 
         stage('OWASP ZAP Scan') {
     steps {
-        sh '''
-        rm -rf zap-report
-        mkdir -p zap-report
+        script {
+            def status = sh(
+                script: '''
+                mkdir -p zap-report
 
-        docker run --rm \
-            --user root \
-            -v "$PWD/zap-report:/zap/wrk:rw" \
-            ghcr.io/zaproxy/zaproxy:stable \
-            zap-baseline.py \
-            -t http://3.27.125.80:4280 \
-            -r report.html
+                docker run --rm \
+                    --user root \
+                    -v "$PWD/zap-report:/zap/wrk:rw" \
+                    ghcr.io/zaproxy/zaproxy:stable \
+                    zap-baseline.py \
+                    -t http://3.27.125.80:4280 \
+                    -r report.html
+                ''',
+                returnStatus: true
+            )
 
-        ls -l zap-report
-        '''
+            echo "ZAP exit code: ${status}"
+
+            if (status == 1 || status == 3) {
+                error("ZAP พบช่องโหว่ระดับ FAIL")
+                }
+            }
         }
     }
 }
