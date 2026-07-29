@@ -55,21 +55,26 @@ pipeline {
         stage('OWASP ZAP Scan') {
     steps {
         sh '''
-        # ลบ Report เก่าทั้งหมด
         rm -rf zap-report
         mkdir -p zap-report
 
         docker run --rm \
-            --user root \
-            -v "$PWD/zap-report:/zap/wrk:rw" \
-            ghcr.io/zaproxy/zaproxy:stable \
-            zap-baseline.py \
-            -t http://3.27.125.80:4280 \
-            -r report.html || true
+          --user root \
+          -v "$PWD/zap-report:/zap/wrk:rw" \
+          ghcr.io/zaproxy/zaproxy:stable \
+          ls -lah /zap/wrk
 
-        echo "===== Verify report ====="
+        docker run --rm \
+          --user root \
+          -v "$PWD/zap-report:/zap/wrk:rw" \
+          ghcr.io/zaproxy/zaproxy:stable \
+          zap-baseline.py \
+          -d \
+          -t http://3.27.125.80:4280 \
+          -r report.html
+
+        echo "===== Files ====="
         ls -lah zap-report
-        grep "3.27.125.80" zap-report/report.html
         '''
         }
     }
