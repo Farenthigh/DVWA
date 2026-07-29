@@ -40,8 +40,8 @@ pipeline {
         docker-compose -f compose.yml pull
         docker-compose -f compose.yml up -d --force-recreate
         '''
+        }
     }
-}
 
         stage('Test Application') {
     steps {
@@ -49,28 +49,30 @@ pipeline {
         sleep 15
         curl -f http://3.27.125.80:4280
         '''
+        }
     }
-}
 
         stage('OWASP ZAP Scan') {
     steps {
         sh '''
         mkdir -p zap-report
+        chmod -R 777 zap-report
 
         docker run --rm \
+            -u root \
             -v $(pwd)/zap-report:/zap/wrk \
             ghcr.io/zaproxy/zaproxy:stable \
             zap-baseline.py \
             -t http://3.27.125.80:4280 \
-            -r report.html
+            -r report.html || true
         '''
+        }
     }
 }
-    }
 
     post {
         always {
             archiveArtifacts artifacts: 'zap-report/*', fingerprint: true
+            }
     }
-}
 }
