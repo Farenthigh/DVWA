@@ -83,6 +83,7 @@ pipeline {
             artifacts: 'zap-report/report.html',
             fingerprint: true,
             allowEmptyArchive: true
-        )
+            )
+        }
     }
 }
