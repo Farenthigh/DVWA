@@ -59,10 +59,11 @@ pipeline {
         mkdir -p zap-report
 
         docker run --rm \
-        -v $(pwd)/zap-report:/zap/wrk \
-        zaproxy/zap-baseline.py \
-        -t http://3.27.125.80:4280 \
-        -r /zap/wrk/report.html || true
+    -v $(pwd)/zap-report:/zap/wrk \
+    zaproxy/zap-stable \
+    zap-baseline.py \
+    -t http://3.27.125.80:4280 \
+    -r /zap/wrk/report.html
 
         ls -lah zap-report
         '''
