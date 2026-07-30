@@ -58,25 +58,15 @@ pipeline {
         rm -rf zap-report
         mkdir -p zap-report
 
-        docker rm -f zapscan || true
-
-        docker run \
-        --name zapscan \
+        docker run --rm \
+        -v $(pwd)/zap-report:/zap/wrk:rw \
         zaproxy/zap-stable \
         zap-baseline.py \
         -t http://3.27.125.80:4280 \
         -r report.html || true
 
-        echo "=== FIND REPORT IN CONTAINER ==="
-        docker exec zapscan find / -name report.html 2>/dev/null || true
-
-        echo "=== COPY REPORT ==="
-        docker cp zapscan:/zap/wrk/report.html zap-report/report.html
-
-        echo "=== CHECK RESULT ==="
+        echo "=== CHECK REPORT ==="
         ls -lah zap-report
-
-        docker rm -f zapscan || true
         '''
     }
 }
