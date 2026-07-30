@@ -56,22 +56,23 @@ pipeline {
     steps {
         sh '''
         rm -rf zap-report
-        mkdir -p zap-report
+        mkdir zap-report
 
-        chmod 777 zap-report
+        docker rm -f zapscan || true
 
-        docker run --rm \
-        --user root \
-        -v $(pwd)/zap-report:/zap/wrk \
+        docker run \
+        --name zapscan \
         zaproxy/zap-stable \
         zap-baseline.py \
         -t http://3.27.125.80:4280 \
-        -r report.html
+        -r /zap/wrk/report.html || true
+
+        docker cp zapscan:/zap/wrk/report.html zap-report/report.html
 
         ls -lah zap-report
         '''
-            }
-        }
+    }
+}
     }
 
     post {
