@@ -59,9 +59,14 @@ pipeline {
         mkdir -p zap-report
         chmod 777 zap-report
 
+        # แปลง path จาก /var/jenkins_home/... ให้เป็น host path จริง
+        HOST_WORKSPACE=$(echo "$WORKSPACE" | sed 's#^/var/jenkins_home#/var/lib/docker/volumes/jenkins_jenkins_home/_data#')
+
+        echo "Container path: $WORKSPACE"
+        echo "Host path:      $HOST_WORKSPACE"
+
         docker run --rm \
-          -v $(pwd)/zap-report:/zap/wrk \
-          --user $(id -u):$(id -g) \
+          -v "$HOST_WORKSPACE/zap-report":/zap/wrk \
           -e HOME=/zap/wrk \
           zaproxy/zap-stable \
           zap-baseline.py \
@@ -71,6 +76,7 @@ pipeline {
         ls -lah zap-report
         '''
     }
+
 }
     }
 
