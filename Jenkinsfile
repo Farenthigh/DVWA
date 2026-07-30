@@ -40,8 +40,8 @@ pipeline {
         docker-compose -f compose.yml pull
         docker-compose -f compose.yml up -d --force-recreate
         '''
+            }
         }
-    }
 
         stage('Test Application') {
     steps {
@@ -58,25 +58,21 @@ pipeline {
         rm -rf zap-report
         mkdir -p zap-report
 
-        docker run \
-        --name zapscan \
+        docker run --rm \
         -v $(pwd)/zap-report:/zap/wrk \
         zaproxy/zap-baseline.py \
         -t http://3.27.125.80:4280 \
-        -r report.html || true
+        -r /zap/wrk/report.html || true
 
-        echo "CHECK REPORT"
         ls -lah zap-report
-
-        docker logs zapscan || true
         '''
-    }
-}
+            }
+        }
     }
 
     post {
     always {
         archiveArtifacts artifacts: 'zap-report/report.html', allowEmptyArchive: true
+        }
     }
-}
 }
