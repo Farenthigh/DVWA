@@ -52,30 +52,20 @@ pipeline {
         }
     }
 
-        stage('OWASP ZAP Scan') {
+        stage('ZAP Scan') {
     steps {
         sh '''
-        rm -rf zap-report
         mkdir -p zap-report
 
-        docker rm -f zapscan >/dev/null 2>&1 || true
-
-        docker run --name zapscan \
-            -u root \
-            ghcr.io/zaproxy/zaproxy:stable \
-            zap-baseline.py \
-            -t http://3.27.125.80:4280 \
-            -r report.html || true
-
-        docker cp zapscan:/home/zap/report.html zap-report/report.html
-
-        docker rm -f zapscan
-
-        ls -lah zap-report
+        docker run --rm \
+        --name zapscan \
+        -v $(pwd)/zap-report:/zap/wrk \
+        zaproxy/zap-baseline.py \
+        -t http://3.27.125.80:4280 \
+        -r report.html || true
         '''
         }
     }
-}
 
     post {
     always {
