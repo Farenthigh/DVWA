@@ -64,17 +64,13 @@ pipeline {
         -t http://3.27.125.80:4280 \
         -r report.html || true
         '''
-        }
     }
+}
     }
 
     post {
     always {
-        archiveArtifacts(
-            artifacts: 'zap-report/report.html',
-            fingerprint: true,
-            allowEmptyArchive: true
-            )
-        }
+        archiveArtifacts artifacts: 'zap-report/report.html', allowEmptyArchive: true
     }
+}
 }
