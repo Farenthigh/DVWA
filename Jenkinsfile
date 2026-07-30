@@ -61,6 +61,7 @@ pipeline {
         chmod 777 zap-report
 
         docker run --rm \
+        --user root \
         -v $(pwd)/zap-report:/zap/wrk \
         zaproxy/zap-stable \
         zap-baseline.py \
