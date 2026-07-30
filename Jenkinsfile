@@ -60,12 +60,13 @@ pipeline {
         chmod 777 zap-report
 
         docker run --rm \
-    -v $(pwd)/zap-report:/zap/wrk \
-    --user $(id -u):$(id -g) \
-    zaproxy/zap-stable \
-    zap-baseline.py \
-    -t http://3.27.125.80:4280 \
-    -r report.html || true
+          -v $(pwd)/zap-report:/zap/wrk \
+          --user $(id -u):$(id -g) \
+          -e HOME=/zap/wrk \
+          zaproxy/zap-stable \
+          zap-baseline.py \
+          -t http://3.27.125.80:4280 \
+          -r report.html || true
 
         ls -lah zap-report
         '''
