@@ -56,18 +56,15 @@ pipeline {
     steps {
         sh '''
         rm -rf zap-report
-        mkdir zap-report
+        mkdir -p zap-report
 
-        docker rm -f zapscan || true
-
-        docker run \
-        --name zapscan \
+        docker run --rm \
+        --user root \
+        -v $(pwd)/zap-report:/zap/wrk \
         zaproxy/zap-stable \
         zap-baseline.py \
         -t http://3.27.125.80:4280 \
-        -r /zap/wrk/report.html || true
-
-        docker cp zapscan:/zap/wrk/report.html zap-report/report.html
+        -r report.html || true
 
         ls -lah zap-report
         '''
