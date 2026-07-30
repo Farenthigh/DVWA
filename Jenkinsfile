@@ -58,16 +58,17 @@ pipeline {
         rm -rf zap-report
         mkdir -p zap-report
 
-        docker run --rm \
+        docker run \
         --name zapscan \
         -v $(pwd)/zap-report:/zap/wrk \
         zaproxy/zap-baseline.py \
         -t http://3.27.125.80:4280 \
         -r report.html || true
 
-        echo "===== CHECK ZAP REPORT ====="
-        ls -lh zap-report
-        grep "Site:" zap-report/report.html || true
+        echo "CHECK REPORT"
+        ls -lah zap-report
+
+        docker logs zapscan || true
         '''
     }
 }
