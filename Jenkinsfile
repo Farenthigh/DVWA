@@ -51,14 +51,7 @@ pipeline {
         '''
             }
         }
-        stage('Check ZAP Connection') {
-    steps {
-        sh '''
-        hostname
-        curl http://localhost:8090
-        '''
-    }
-}
+        
 
         stage('ZAP Scan') {
     steps {
@@ -67,12 +60,12 @@ pipeline {
             host: 'localhost',
             port: 8090,
             timeout: 60,
-            zapHome: '/opt/zaproxy',
+            zapHome: '',
             allowedHosts: ['3.106.225.84'],
             sessionPath: '',
             externalZap: true,
             rootCaFile: '',
-            additionalConfigurations: [],
+            additionalConfigurations: []
         )
 
         importZapUrls(
@@ -80,20 +73,28 @@ pipeline {
         )
 
         runZapCrawler(
-    host: 'http://3.106.225.84:4280',
-    maxChildren: 10,
-    contextName: '',
-    contextId: 0,
-    subtreeOnly: false,
-    recurse: true,
-    userId: 0
-)
-        runZapAttack(
-    scanPolicyName: 'Default Policy',
-    userId: 0
-)
+            host: 'http://3.106.225.84:4280',
+            maxChildren: 10,
+            contextName: '',
+            contextId: 0,
+            subtreeOnly: false,
+            recurse: true,
+            userId: 0
+        )
 
-        archive()
+        runZapAttack(
+            scanPolicyName: 'Default Policy',
+            userId: 0,
+            contextId: 0,
+            recurse: true,
+            inScopeOnly: false,
+            method: '',
+            postData: ''
+        )
+
+        archive(
+            includes: '**/*.html'
+        )
 
         stopZap()
     }
