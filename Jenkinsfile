@@ -52,11 +52,25 @@ pipeline {
             }
         }
 
-        stage('Import ZAP URLs') {
+        stage('ZAP Scan') {
     steps {
-        importZapUrls()
-            }
-        }
+
+        startZap()
+
+        importZapUrls(
+            path: 'zap/urls.txt'
+        )
+
+        runZapCrawler()
+
+        runZapAttack()
+
+        archive()
+
+        stopZap()
+
+    }
+}
     }
 
     post {
