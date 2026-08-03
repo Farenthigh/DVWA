@@ -68,14 +68,18 @@ pipeline {
             additionalConfigurations: []
         )
 
-        runZapCrawler(
+        importZapUrls(
+    path: 'zap/urls.txt'
+)
+
+runZapCrawler(
     host: 'http://3.106.225.84:4280',
     maxChildren: 10,
     contextName: 'DVWA',
-    contextId: 0,
+    contextId: -1,
     subtreeOnly: false,
     recurse: true,
-    userId: 0
+    userId: -1
 )
 
     }
