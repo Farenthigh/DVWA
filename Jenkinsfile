@@ -57,7 +57,7 @@ pipeline {
     steps {
 
         startZap(
-            host: 'localhost',
+            host: '172.31.1.86',
             port: 8090,
             timeout: 60,
             zapHome: '',
