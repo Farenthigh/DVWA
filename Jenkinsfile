@@ -69,14 +69,14 @@ pipeline {
         )
 
         runZapCrawler(
-            host: 'http://3.106.225.84:4280',
-            maxChildren: 10,
-            contextName: '',
-            contextId: 0,
-            subtreeOnly: false,
-            recurse: true,
-            userId: 0
-        )
+    host: 'http://3.106.225.84:4280',
+    maxChildren: 10,
+    contextName: 'DVWA',
+    contextId: 0,
+    subtreeOnly: false,
+    recurse: true,
+    userId: 0
+)
 
     }
 }
