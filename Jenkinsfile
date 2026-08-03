@@ -55,20 +55,31 @@ pipeline {
         stage('ZAP Scan') {
     steps {
 
-        startZap()
+        startZap(
+            host: 'localhost',
+            port: 8090,
+            timeout: 60,
+            zapHome: '/opt/zaproxy',
+            allowedHosts: '3.106.225.84',
+            sessionPath: '',
+            externalZap: true,
+            rootCaFile: '',
+            additionalConfigurations: ''
+        )
 
         importZapUrls(
             path: 'zap/urls.txt'
         )
 
-        runZapCrawler()
+        runZapCrawler(
+            host: 'http://3.106.225.84:4280'
+        )
 
         runZapAttack()
 
         archive()
 
         stopZap()
-
     }
 }
     }
