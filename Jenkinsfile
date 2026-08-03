@@ -68,10 +68,6 @@ pipeline {
             additionalConfigurations: []
         )
 
-        importZapUrls(
-            path: 'zap/urls.txt'
-        )
-
         runZapCrawler(
             host: 'http://3.106.225.84:4280',
             maxChildren: 10,
@@ -82,21 +78,6 @@ pipeline {
             userId: 0
         )
 
-        runZapAttack(
-            scanPolicyName: 'Default Policy',
-            userId: 0,
-            contextId: 0,
-            recurse: true,
-            inScopeOnly: false,
-            method: '',
-            postData: ''
-        )
-
-        archive(
-            includes: '**/*.html'
-        )
-
-        stopZap()
     }
 }
     }
