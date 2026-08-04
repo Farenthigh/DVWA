@@ -69,19 +69,18 @@ pipeline {
         )
 
         importZapUrls(
-    path: 'zap/urls.txt'
-)
+            path: 'zap/urls.txt'
+        )
 
-runZapCrawler(
-    host: 'http://16.176.15.93:4280',
-    maxChildren: 10,
-    contextName: 'DVWA',
-    contextId: -1,
-    subtreeOnly: false,
-    recurse: true,
-    userId: -1
-)
-
+        runZapCrawler(
+            host: 'http://16.176.15.93:4280',
+            maxChildren: 10,
+            contextName: 'DVWA',
+            contextId: -1,
+            subtreeOnly: false,
+            recurse: true,
+            userId: -1
+        )
     }
 }
     }
