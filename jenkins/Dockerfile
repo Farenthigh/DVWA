@@ -24,7 +24,7 @@ RUN wget -O /tmp/ZAP.tar.gz \
     mkdir -p /opt && \
     tar -xzf /tmp/ZAP.tar.gz -C /opt && \
     mv /opt/ZAP_2.17.0 /opt/zap && \
-    ln -s /opt/zap/zap.sh /usr/local/bin/zap.sh && \
+    ln -sf /opt/zaproxy/zap.sh /usr/local/bin/zap.sh && \
     rm /tmp/ZAP.tar.gz
 
 USER jenkins
