@@ -47,7 +47,7 @@ pipeline {
     steps {
         sh '''
         sleep 15
-        curl -f http://3.106.225.84:4280
+        curl -f http://16.176.15.93:4280
         '''
             }
         }
@@ -61,7 +61,7 @@ pipeline {
             port: 8090,
             timeout: 60,
             zapHome: '',
-            allowedHosts: ['3.106.225.84'],
+            allowedHosts: ['16.176.15.93'],
             sessionPath: '',
             externalZap: true,
             rootCaFile: '',
@@ -73,7 +73,7 @@ pipeline {
 )
 
 runZapCrawler(
-    host: 'http://3.106.225.84:4280',
+    host: 'http://16.176.15.93:4280',
     maxChildren: 10,
     contextName: 'DVWA',
     contextId: -1,
