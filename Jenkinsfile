@@ -56,33 +56,25 @@ pipeline {
         stage('ZAP Scan') {
     steps {
 
-        startZap(
-            host: '172.31.1.86',
-            port: 8090,
-            timeout: 60,
-            zapHome: '',
-            allowedHosts: ['16.176.15.93'],
-            sessionPath: '',
-            externalZap: true,
-            rootCaFile: '',
-            additionalConfigurations: []
-        )
+        sh '''
+        echo "Check ZAP"
 
-        importZapUrls(
-            path: 'zap/urls.txt'
-        )
+        curl http://172.31.1.86:8090/JSON/core/view/version/
 
-        runZapCrawler(
-            host: 'http://16.176.15.93:4280',
-            maxChildren: 10,
-            contextName: 'DVWA',
-            contextId: -1,
-            subtreeOnly: false,
-            recurse: true,
-            userId: -1
-        )
+        echo "Start Spider"
+
+        curl "http://172.31.1.86:8090/JSON/spider/action/scan/?url=http://16.176.15.93:4280"
+
+        sleep 60
+
+        echo "Generate Report"
+
+        curl "http://172.31.1.86:8090/OTHER/core/other/htmlreport/" \
+        -o zap-report/report.html
+        '''
     }
 }
+
     }
 
     post {
