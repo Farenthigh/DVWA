@@ -37,8 +37,8 @@ pipeline {
         stage('Deploy DVWA') {
     steps {
         sh '''
-        docker-compose -f compose.yml pull
-        docker-compose -f compose.yml up -d --force-recreate
+        docker compose -f compose.yml pull
+        docker compose -f compose.yml up -d --force-recreate
         '''
                 }
             }
