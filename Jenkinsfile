@@ -66,27 +66,27 @@ pipeline {
     }
 }
 
-        stage('ZAP Scan') {
-    steps {
+//         stage('ZAP Scan') {
+//     steps {
 
-        sh '''
-        echo "Check ZAP"
+//         sh '''
+//         echo "Check ZAP"
 
-        curl http://172.31.1.86:8090/JSON/core/view/version/
+//         curl http://172.31.1.86:8090/JSON/core/view/version/
 
-        echo "Start Spider"
+//         echo "Start Spider"
 
-        curl "http://172.31.1.86:8090/JSON/spider/action/scan/?url=http://16.176.15.93:4280"
+//         curl "http://172.31.1.86:8090/JSON/spider/action/scan/?url=http://16.176.15.93:4280"
 
-        sleep 60
+//         sleep 60
 
-        echo "Generate Report"
+//         echo "Generate Report"
 
-        curl "http://172.31.1.86:8090/OTHER/core/other/htmlreport/" \
-        -o zap-report/report.html
-        '''
-    }
-}
+//         curl "http://172.31.1.86:8090/OTHER/core/other/htmlreport/" \
+//         -o zap-report/report.html
+//         '''
+//     }
+// }
 
     }
 
