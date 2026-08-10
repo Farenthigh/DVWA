@@ -18,14 +18,22 @@ if( !@($GLOBALS["___mysqli_ston"] = mysqli_connect( $_DVWA[ 'db_server' ],  $_DV
 	dvwaPageReload();
 }
 
+// Validate database name before using it as a SQL identifier
+$db_name = $_DVWA['db_database'];
+
+if (!preg_match('/^[A-Za-z0-9_]+$/', $db_name)) {
+    dvwaMessagePush("Invalid database name.");
+    dvwaPageReload();
+}
+
 // Create database
-$drop_db = "DROP DATABASE IF EXISTS {$_DVWA[ 'db_database' ]};";
+$drop_db = "DROP DATABASE IF EXISTS `$db_name`;";
 if( !@mysqli_query($GLOBALS["___mysqli_ston"],  $drop_db ) ) {
 	dvwaMessagePush( "Could not drop existing database<br />SQL: " . ((is_object($GLOBALS["___mysqli_ston"])) ? mysqli_error($GLOBALS["___mysqli_ston"]) : (($___mysqli_res = mysqli_connect_error()) ? $___mysqli_res : false)) );
 	dvwaPageReload();
 }
 
-$create_db = "CREATE DATABASE {$_DVWA[ 'db_database' ]};";
+$create_db = "CREATE DATABASE `$db_name`;";
 if( !@mysqli_query($GLOBALS["___mysqli_ston"],  $create_db ) ) {
 	dvwaMessagePush( "Could not create database<br />SQL: " . ((is_object($GLOBALS["___mysqli_ston"])) ? mysqli_error($GLOBALS["___mysqli_ston"]) : (($___mysqli_res = mysqli_connect_error()) ? $___mysqli_res : false)) );
 	dvwaPageReload();
@@ -34,9 +42,9 @@ dvwaMessagePush( "Database has been created." );
 
 
 // Create table 'users'
-if( !@((bool)mysqli_query($GLOBALS["___mysqli_ston"], "USE " . $_DVWA[ 'db_database' ])) ) {
-	dvwaMessagePush( 'Could not connect to database.' );
-	dvwaPageReload();
+if (!@mysqli_select_db($GLOBALS["___mysqli_ston"], $db_name)) {
+    dvwaMessagePush('Could not connect to database.');
+    dvwaPageReload();
 }
 
 $create_tb = "CREATE TABLE users (user_id int(6),first_name varchar(15),last_name varchar(15), user varchar(15), password varchar(32),avatar varchar(70), last_login TIMESTAMP, failed_login INT(3), PRIMARY KEY (user_id));";
