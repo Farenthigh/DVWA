@@ -3,7 +3,8 @@ if (!defined('DVWA_WEB_PAGE_TO_ROOT')) {
     define('DVWA_WEB_PAGE_TO_ROOT', '../../../');
 }
 error_reporting(E_ALL);
-ini_set('display_errors', 1);
+ini_set('display_errors', '0');
+ini_set('log_errors', '1');
 
 // Initialize variables
 $html = "";
