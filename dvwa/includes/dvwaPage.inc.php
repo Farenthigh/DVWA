@@ -69,14 +69,13 @@ function dvwa_start_session() {
 		session_write_close();
 	}
 
-	session_set_cookie_params([
-		'lifetime' => $maxlifetime,
-		'path' => '/',
-		'domain' => $domain,
-		'secure' => true,
-		'httponly' => $httponly,
-		'samesite' => $samesite
-	]);
+	session_set_cookie_params(
+    $maxlifetime,
+    '/',
+    $domain,
+    true,
+    true
+);
 
 	/*
 	 * We need to force a new Set-Cookie header with the updated flags by updating
