@@ -29,7 +29,9 @@
 		<br />
 
 		<h3>Medium Level</h3>
-		<p>The code prevents you from using absolute URLs to take the user off the site, so you can either use relative URLs to take them to other pages on the same site or a <a href="https://en.wikipedia.org/wiki/Wikipedia:Protocol-relative_URL" target="_blank">Protocol-relative URL</a>.</p>
+		<p>The code prevents you from using absolute URLs to take the user off the site, so you can either use relative URLs to take them to other pages on the same site or a <a href="https://en.wikipedia.org/wiki/Wikipedia:Protocol-relative_URL"
+   target="_blank"
+   rel="noopener noreferrer">Protocol-relative URL</a>.</p>
 
 		<p>Spoiler: <span class="spoiler">Try browsing to /vulnerabilities/open_redirect/source/low.php?redirect=//digi.ninja</span></p>
 
