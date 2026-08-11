@@ -12,7 +12,7 @@ use OpenApi\Attributes as OAT;
 # aren't available when the Swagger generator scripts run so I can't
 # get the HTTP_HOST value from them. For now I'm hard coding it to make
 # my dev life easier.
-#[OAT\Server(url: 'http://dvwa.test', description: "API server")]
+#[OAT\Server(url: 'https://dvwa.test', description: "API server")]
 
 #[OAT\Tag(name: "user", description: "User operations.")]
 #[OAT\Tag(name: "health", description: "Health operations.")]
