@@ -91,6 +91,13 @@ $html .= "<div class='info-banner'>Current Role: {$role}</div>";
 
 // Set initial role cookie if not exists
 if (!isset($_COOKIE['user_role'])) {
-    setcookie('user_role', 'regular_user', time() + 3600, '/');
+    setcookie('user_role', 'regular_user', [
+        'expires' => time() + 3600,
+        'path' => '/',
+        'secure' => true,
+        'httponly' => true,
+        'samesite' => 'Lax'
+    ]);
 }
+
 ?>
