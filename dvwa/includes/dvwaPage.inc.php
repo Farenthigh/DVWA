@@ -212,16 +212,24 @@ function dvwaSecurityLevelGet() {
 	return 'impossible';
 }
 
-function dvwaSecurityLevelSet( $pSecurityLevel ) {
-	if( $pSecurityLevel == 'impossible' ) {
-		$httponly = true;
-	}
-	else {
-		$httponly = false;
-	}
+function dvwaSecurityLevelSet($pSecurityLevel) {
+    if ($pSecurityLevel == 'impossible') {
+        $httponly = true;
+    } else {
+        $httponly = false;
+    }
 
-	setcookie( 'security', $pSecurityLevel, 0, "/", "", false, $httponly );
-	$_COOKIE['security'] = $pSecurityLevel;
+    setcookie(
+        'security',
+        $pSecurityLevel,
+        0,
+        "/",
+        "",
+        true,
+        $httponly
+    );
+
+    $_COOKIE['security'] = $pSecurityLevel;
 }
 
 function dvwaLocaleGet() {
