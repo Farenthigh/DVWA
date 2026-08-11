@@ -73,7 +73,7 @@ function dvwa_start_session() {
 		'lifetime' => $maxlifetime,
 		'path' => '/',
 		'domain' => $domain,
-		'secure' => $secure,
+		'secure' => true,
 		'httponly' => $httponly,
 		'samesite' => $samesite
 	]);
