@@ -680,19 +680,22 @@ function checkToken( $user_token, $session_token, $returnURL ) {  # Validate the
 	}
 }
 
-function generateSessionToken() {  # Generate a brand new (CSRF) token
-	if( isset( $_SESSION[ 'session_token' ] ) ) {
-		destroySessionToken();
-	}
-	$_SESSION[ 'session_token' ] = md5( uniqid() );
+function generateSessionToken() {
+    if (isset($_SESSION['session_token'])) {
+        destroySessionToken();
+    }
+
+    $_SESSION['session_token'] = bin2hex(random_bytes(32));
 }
 
-function destroySessionToken() {  # Destroy any session with the name 'session_token'
-	unset( $_SESSION[ 'session_token' ] );
+function destroySessionToken() {
+    unset($_SESSION['session_token']);
 }
 
-function tokenField() {  # Return a field for the (CSRF) token
-	return "<input type='hidden' name='user_token' value='{$_SESSION[ 'session_token' ]}' />";
+function tokenField() {
+    return "<input type='hidden' name='user_token' value='" .
+	htmlspecialchars($_SESSION['session_token'], ENT_QUOTES, 'UTF-8') .
+	"' />";
 }
 // -- END (Token functions)
 
