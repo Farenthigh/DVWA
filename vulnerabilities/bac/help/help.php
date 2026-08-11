@@ -121,9 +121,13 @@
 
 						<h3>More Information</h3>
 						<ul>
-							<li><a href="https://owasp.org/Top10/A01_2021-Broken_Access_Control/" target="_blank">OWASP
-									Top 10 2021 - Broken Access Control</a></li>
 							<li>
+    <a href="https://owasp.org/Top10/A01_2021-Broken_Access_Control/"
+	target="_blank"
+	rel="noopener noreferrer">
+        OWASP Top 10 2021 - Broken Access Control
+    </a>
+</li>
     <a href="https://owasp.org/www-project-web-security-testing-guide/latest/4-Web_Application_Security_Testing/05-Authorization_Testing/02-Testing_for_Bypassing_Authorization_Schema"
 	target="_blank"
 	rel="noopener noreferrer">
