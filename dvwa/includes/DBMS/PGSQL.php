@@ -53,7 +53,7 @@ if( !pg_query( $create_tb ) ) {
 dvwaMessagePush( "'users' table was created." );
 
 // Get the base directory for the avatar media...
-$baseUrl = 'http://'.$_SERVER[ 'SERVER_NAME' ].$_SERVER[ 'PHP_SELF' ];
+$baseUrl = 'https://'.$_SERVER[ 'SERVER_NAME' ].$_SERVER[ 'PHP_SELF' ];
 $stripPos = strpos( $baseUrl, 'dvwa/setup.php' );
 $baseUrl = substr( $baseUrl, 0, $stripPos ).'dvwa/hackable/users/';
 
