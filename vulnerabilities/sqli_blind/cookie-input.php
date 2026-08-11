@@ -8,10 +8,17 @@ dvwaPageStartup( array( 'authenticated' ) );
 $page = dvwaPageNewGrab();
 $page[ 'title' ] = 'Blind SQL Injection Cookie Input' . $page[ 'title_separator' ].$page[ 'title' ];
 
-if( isset( $_POST[ 'id' ] ) ) {
-	setcookie( 'id', $_POST[ 'id' ]);
-	$page[ 'body' ] .= "Cookie ID set!<br /><br /><br />";
-	$page[ 'body' ] .= "<script>window.opener.location.reload(true);</script>";
+if (isset($_POST['id'])) {
+    setcookie('id', $_POST['id'], [
+    'expires' => 0,
+    'path' => '/',
+    'secure' => true,
+    'httponly' => true,
+    'samesite' => 'Lax'
+]);
+
+    $page['body'] .= "Cookie ID set!<br /><br /><br />";
+    $page['body'] .= "<script>window.opener.location.reload(true);</script>";
 }
 
 $page[ 'body' ] .= "
