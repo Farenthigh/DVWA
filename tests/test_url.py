@@ -57,7 +57,7 @@ def test_url():
         "https://wpscan.com/",
         # Cloudflare doesn't like GitHub checking it
 
-        "http://www.w3.org/TR/html4/loose.dtd",
+        "https://www.w3.org/TR/html4/loose.dtd",
         # Don't need to check the DTD
 
         # "https://twitter.com/digininja",
