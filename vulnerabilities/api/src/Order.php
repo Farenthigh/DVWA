@@ -31,7 +31,7 @@ final class Order
 
 	function __construct ($id, $name, $address, $items, $status) {
 		if (is_null ($id)) {
-			$id = mt_rand(50,100);
+			$id = random_int(50, 100);
 		}
 		$this->id = $id;
 		$this->name = $name;
