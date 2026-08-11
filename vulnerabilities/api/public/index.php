@@ -8,7 +8,18 @@ use Src\OrderController;
 use Src\LoginController;
 use Src\Helpers;
 
-header("Access-Control-Allow-Origin: *");
+$allowedOrigins = [
+    'http://localhost:3000',
+    'https://example.com'
+];
+
+if (
+    isset($_SERVER['HTTP_ORIGIN']) &&
+    in_array($_SERVER['HTTP_ORIGIN'], $allowedOrigins, true)
+) {
+    header('Access-Control-Allow-Origin: ' . $_SERVER['HTTP_ORIGIN']);
+}
+
 header("Content-Type: application/json; charset=UTF-8");
 header("Access-Control-Allow-Methods: OPTIONS,GET,POST,PUT,DELETE");
 header("Access-Control-Max-Age: 3600");
