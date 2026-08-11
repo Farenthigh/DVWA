@@ -15,14 +15,39 @@ if (array_key_exists ("id", $_GET) &&
 	$security = $_GET[ 'security' ];
 	$locale = $_GET[ 'locale' ];
 
+	$allowed_locales = ['en'];
+
+    if (!in_array($locale, $allowed_locales, true)) {
+        $locale = 'en';
+    }
+
+    $allowed_ids = [
+        'brute',
+        'command',
+        'csrf',
+        'exec',
+        'fi',
+        'file_upload',
+        'sqli',
+        'sqli_blind',
+        'xss_d',
+        'xss_r'
+    ];
+
+    if (!in_array($id, $allowed_ids, true)) {
+        $help = "<p>Not Found</p>";
+    } else {
 	ob_start();
 	if ($locale == 'en') {
-		eval( '?>' . file_get_contents( DVWA_WEB_PAGE_TO_ROOT . "vulnerabilities/{$id}/help/help.php" ) . '<?php ' );
+		include DVWA_WEB_PAGE_TO_ROOT .
+                "vulnerabilities/{$id}/help/help.php";
 	} else {
-		eval( '?>' . file_get_contents( DVWA_WEB_PAGE_TO_ROOT . "vulnerabilities/{$id}/help/help.{$locale}.php" ) . '<?php ' );
+		include DVWA_WEB_PAGE_TO_ROOT .
+                "vulnerabilities/{$id}/help/help.{$locale}.php";
 	}
 	$help = ob_get_contents();
 	ob_end_clean();
+	}
 } else {
 	$help = "<p>Not Found</p>";
 }
