@@ -95,13 +95,11 @@ function dvwa_start_session() {
 	 * the Set-Cookie header.
 	*/
 	if ($security_level == 'impossible') {
-		session_start();
-		session_regenerate_id(); // force a new id to be generated
-	}
-	else {
-		if (isset($_COOKIE[session_name()])) // if a session id already exists
-			session_id($_COOKIE[session_name()]); // we keep the same id
-		session_start(); // otherwise a new one will be generated here
+    session_start();
+    session_regenerate_id(true);
+}
+else {
+    session_start();
 	}
 }
 
