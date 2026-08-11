@@ -25,7 +25,7 @@ $page[ 'body' ] .= "
 
 	<h2>Credits</h2>
 	<ul>
-		<li>Brooks Garrett: " . dvwaExternalLinkUrlGet( 'http://brooksgarrett.com/','www.brooksgarrett.com' ) . "</li>
+		<li>Brooks Garrett: " . dvwaExternalLinkUrlGet( 'https://brooksgarrett.com/','www.brooksgarrett.com' ) . "</li>
 		<li>Craig</li>
 		<li>g0tmi1k: " . dvwaExternalLinkUrlGet( 'https://blog.g0tmi1k.com/','g0tmi1k.com' ) . "</li>
 		<li>Jamesr: " . dvwaExternalLinkUrlGet( 'https://www.creativenucleus.com/','www.creativenucleus.com' ) . "</li>
@@ -33,7 +33,7 @@ $page[ 'body' ] .= "
 		<li>RandomStorm</li>
 		<li>Ryan Dewhurst: " . dvwaExternalLinkUrlGet( 'https://wpscan.com/','wpscan.com' ) . "</li>
 		<li>Shinkurt: " . dvwaExternalLinkUrlGet( 'https://evil.blog/','evil.blog' ) . "</li>
-		<li>Tedi Heriyanto: " . dvwaExternalLinkUrlGet( 'http://tedi.heriyanto.net/','tedi.heriyanto.net' ) . "</li>
+		<li>Tedi Heriyanto: " . dvwaExternalLinkUrlGet( 'https://tedi.heriyanto.net/','tedi.heriyanto.net' ) . "</li>
 		<li>Tom Mackenzie</li>
 		<li>Robin Wood: " . dvwaExternalLinkUrlGet( 'https://digi.ninja/','digi.ninja' ) . "</li>
 		<li>Zhengyang Song: " . dvwaExternalLinkUrlGet( 'https://github.com/songzy12/','songzy12' ) . "</li>
